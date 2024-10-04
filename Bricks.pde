@@ -10,13 +10,13 @@ void setup() {
 void draw() {
   if (showWall) {
     background(random(100,255),random(100,255),random(100,255));  
-    for (int y = 0; y <= height; y = y + 20) {  // Limit y to canvas height
+    for (int y = 0; y <= 900; y = y + 20) {  // Limit y to canvas height
       if (a % 2 == 0)
         b = 25;
       else 
         b = 0;
 
-      for (int x = 0; x < width; x = x + 55) {  // Limit x to canvas width
+      for (int x = 0; x < 900; x = x + 55) {  // Limit x to canvas width
         Brick bob = new Brick(x - b, y); 
         bob.show();
         a++;
@@ -57,6 +57,7 @@ class Brick {
   
   // Method to display the brick
   void show() {
+    stroke(0);
     fill(200, 100, 50); // Give the brick a color
     rect(x, y, 50, 20); // Draw a rectangle as a brick
   }
