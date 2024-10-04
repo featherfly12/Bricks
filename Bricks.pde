@@ -1,3 +1,5 @@
+int a=0;
+int b;
 void setup()
 {
   background(0);
@@ -6,12 +8,16 @@ void setup()
 }
 void draw()
 {
-  for(int y =0; y <= 385; y=y+20)
+  for(int y =0; y <= 390; y=y+20)
   {
-    for(int x =0; x < 380; x=x+55)
+    if (a%2==0)
+       b = 25;
+     else b = 0;
+    for(int x =0; x < 900; x=x+55)
     {
-      Brick bob = new Brick(x,y);
+      Brick bob = new Brick(x-b,y);
       bob.show();
+      a++;
     }
   }
 }
@@ -30,3 +36,4 @@ class Brick
     rect(myX,myY,50,10);
   }
 }
+
