@@ -11,7 +11,7 @@ void draw() {
   if (showWall) {
     background(random(100,255),random(100,255),random(100,255));  // Clear the background initially
     // Draw the brick wall
-    for (int y = 0; y <= 900; y = y + 30) {
+    for (int y = 0; y <= 900; y = y + 20) {
 
       if (a % 2 == 0)
         b = 25;
