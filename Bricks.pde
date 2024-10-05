@@ -1,64 +1,77 @@
 int a = 0;
 int b;
 boolean showWall = true;
-boolean clearEllipses = false; 
+boolean clearEllipses = true;  // Ellipses will appear initially
 
 void setup() {
-  size(380, 385); 
+  size(380, 385); // Canvas size
 }
 
 void draw() {
   if (showWall) {
-    background(random(100,255),random(100,255),random(100,255));  
-    for (int y = 0; y <= 900; y = y + 20) {  // Limit y to canvas height
+    background(random(100,255),random(100,255),random(100,255));  // Clear the background initially
+    // Draw the brick wall
+    for (int y = 0; y <= 900; y = y + 30) {
+
       if (a % 2 == 0)
         b = 25;
-      else 
+      else
         b = 0;
 
-      for (int x = 0; x < 900; x = x + 55) {  // Limit x to canvas width
-        Brick bob = new Brick(x - b, y); 
+      for (int x = 0; x < 900; x = x + 55) { // Loop adjusted to fit canvas
+        Brick bob = new Brick(x - b, y); // Correct brick positioning
         bob.show();
         a++;
       }
     }
-    showWall = false;  
+    showWall = false;  // Draw the wall only once
   }
 
+  // Only draw ellipses if clearEllipses is true
   if (clearEllipses) {
     drawEllipse();
   }
+
+  // Draw the reset button
+  drawResetButton();
 }
 
 void mousePressed() {
-  clearEllipses = !clearEllipses;  
-  if (!clearEllipses) {
-    showWall = true;  
-    a = 0;  
-    background(255);  
+  // Check if the mouse press is inside the button
+  if (mouseX > 300 && mouseX < 370 && mouseY > 350 && mouseY < 380) {
+    clearEllipses = false;  // Stop drawing ellipses
+    showWall = true;        // Redraw the brick wall
+    a = 0;                  // Reset the brick row counter
+    background(255);        // Clear the canvas
   }
 }
 
 void drawEllipse() {
   fill(random(100, 255), random(100, 255), 255);
   noStroke();
-  ellipse(mouseX, mouseY, 30, 30);  
+  ellipse(mouseX, mouseY, 30, 30);  // Draw ellipse at mouse position
 }
 
-// Class definition for Brick
+void drawResetButton() {
+  // Draw the reset button as a rectangle
+  fill(200);
+  rect(300, 350, 70, 30);
+  fill(0);
+  textSize(12);
+  text("Reset", 315, 370);
+}
+
 class Brick {
-  float x, y; // Position of the brick
-  
-  // Constructor to initialize position
-  Brick(float tempX, float tempY) {
-    x = tempX;
-    y = tempY;
+  int myX, myY;
+
+  Brick(int x, int y) {
+    myX = x;
+    myY = y;
   }
-  
-  // Method to display the brick
+
   void show() {
     stroke(0);
-    fill(200, 100, 50); // Give the brick a color
-    rect(x, y, 50, 20); // Draw a rectangle as a brick
+    fill(255, 0, 0);
+    rect(myX, myY, 50, 10); // Brick size
   }
 }
