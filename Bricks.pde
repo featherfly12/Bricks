@@ -2,6 +2,7 @@ int a = 0;
 int b;
 boolean showWall = true;
 boolean clearEllipses = true;  // Ellipses will appear initially
+boolean ellipsesFollowMouse = true; // Toggle for ellipses to follow the mouse
 
 void setup() {
   size(380, 385); // Canvas size
@@ -9,10 +10,9 @@ void setup() {
 
 void draw() {
   if (showWall) {
-    background(random(100,255),random(100,255),random(100,255));  // Clear the background initially
+    background(255);  // Clear the background initially
     // Draw the brick wall
     for (int y = 0; y <= 900; y = y + 20) {
-
       if (a % 2 == 0)
         b = 25;
       else
@@ -27,8 +27,8 @@ void draw() {
     showWall = false;  // Draw the wall only once
   }
 
-  // Only draw ellipses if clearEllipses is true
-  if (clearEllipses) {
+  // Only draw ellipses if clearEllipses is true and ellipses are following the mouse
+  if (clearEllipses && ellipsesFollowMouse) {
     drawEllipse();
   }
 
@@ -37,12 +37,17 @@ void draw() {
 }
 
 void mousePressed() {
-  // Check if the mouse press is inside the button
+  // Check if the mouse press is inside the reset button
   if (mouseX > 300 && mouseX < 370 && mouseY > 350 && mouseY < 380) {
     clearEllipses = false;  // Stop drawing ellipses
     showWall = true;        // Redraw the brick wall
     a = 0;                  // Reset the brick row counter
     background(255);        // Clear the canvas
+  } else {
+    // If clicking anywhere else, toggle whether ellipses follow the mouse
+    ellipsesFollowMouse = !ellipsesFollowMouse;
+
+
   }
 }
 
@@ -70,7 +75,7 @@ class Brick {
   }
 
   void show() {
-    stroke(0);
+    noStroke();
     fill(255, 0, 0);
     rect(myX, myY, 50, 10); // Brick size
   }
