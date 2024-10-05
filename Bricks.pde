@@ -15,7 +15,7 @@ void draw() {
     for (int y = 0; y <= 900; y = y + 20) {
       if (a % 2 == 0)
         b = 25;
-      else
+      else 
         b = 0;
 
       for (int x = 0; x < 900; x = x + 55) { // Loop adjusted to fit canvas
@@ -32,8 +32,8 @@ void draw() {
     drawEllipse();
   }
 
-  // Draw the reset button
-  drawResetButton();
+  // Draw the reset and go buttons
+  drawButtons();
 }
 
 void mousePressed() {
@@ -43,11 +43,15 @@ void mousePressed() {
     showWall = true;        // Redraw the brick wall
     a = 0;                  // Reset the brick row counter
     background(255);        // Clear the canvas
-  } else {
-    // If clicking anywhere else, toggle whether ellipses follow the mouse
+  } 
+  // Check if the mouse press is inside the go button
+  else if (mouseX > 220 && mouseX < 290 && mouseY > 350 && mouseY < 380) {
+    clearEllipses = true;   // Start drawing ellipses again
+    ellipsesFollowMouse = true;  // Make ellipses follow the mouse again
+  } 
+  // If clicking anywhere else, toggle whether ellipses follow the mouse
+  else {
     ellipsesFollowMouse = !ellipsesFollowMouse;
-
-
   }
 }
 
@@ -57,13 +61,21 @@ void drawEllipse() {
   ellipse(mouseX, mouseY, 30, 30);  // Draw ellipse at mouse position
 }
 
-void drawResetButton() {
-  // Draw the reset button as a rectangle
+void drawButtons() {
+  // Draw the reset button
   fill(200);
   rect(300, 350, 70, 30);
   fill(0);
   textSize(12);
   text("Reset", 315, 370);
+
+  // Draw the go button
+  fill(200);
+  rect(220, 350, 70, 30);
+  fill(0);
+  textSize(12);
+  text("Go", 245, 370);
+
 }
 
 class Brick {
@@ -75,7 +87,7 @@ class Brick {
   }
 
   void show() {
-    noStroke();
+    stroke(0);
     fill(255, 0, 0);
     rect(myX, myY, 50, 10); // Brick size
   }
